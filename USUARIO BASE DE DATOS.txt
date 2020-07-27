@@ -1,0 +1,9 @@
+mongoatlas
+
+usuario y password
+root
+SCtzhTCx77Qdlm23
+
+
+MongoDB URL para mongo compass
+mongodb+srv://root:SCtzhTCx77Qdlm23@cluster0.g4rcs.mongodb.net/cafe
