@@ -8,11 +8,11 @@ const _ = require('underscore');
 
 //Uso el Schema de Usuario
 const Usuario = require('../models/usuario');
-const usuario = require('../models/usuario');
+const { verificaToken, verificaAdminRole } = require('../middlewares/autenticacion');
 
 const app = express();
 
-app.get('/usuario', function(req, res) {
+app.get('/usuario', verificaToken, (req, res) => {
 
     //Si no viene el parametro desde, se inicializa en 0. (viene como string)
     let desde = req.query.desde || 0;
@@ -51,7 +51,7 @@ app.get('/usuario', function(req, res) {
 //Para probar este POST, desde Postman enviamos una peticion POST
 //que tiene en el body la opcion seleccionada x-www-form-urlencoded
 //y los campos con sus valores.
-app.post('/usuario', function(req, res) {
+app.post('/usuario', [verificaToken, verificaAdminRole], function(req, res) {
 
     let body = req.body;
 
@@ -78,7 +78,7 @@ app.post('/usuario', function(req, res) {
 });
 
 //Poniendo :id, indicamos el parametro que recibiriamos por url
-app.put('/usuario/:id', function(req, res) {
+app.put('/usuario/:id', [verificaToken, verificaAdminRole], function(req, res) {
     let id_usuario = req.params.id;
 
     //Con la funcion pick (del underscore), solo me quedo con los campos que a mi me interesa.
@@ -101,7 +101,7 @@ app.put('/usuario/:id', function(req, res) {
 
 });
 
-app.delete('/usuario/:id', function(req, res) {
+app.delete('/usuario/:id', [verificaToken, verificaAdminRole], function(req, res) {
 
     let id_usuario = req.params.id;
 

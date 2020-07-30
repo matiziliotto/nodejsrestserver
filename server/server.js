@@ -14,7 +14,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
-app.use(require('./routes/usuario'));
+//Configuracion global de rutas
+app.use(require('./routes/index'));
 
 
 //Conexcion a la base de datos. /cafe indica que cafe es la base de datos.
