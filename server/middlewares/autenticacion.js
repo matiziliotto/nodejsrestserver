@@ -47,7 +47,35 @@ let verificaAdminRole = (req, res, next) => {
     next();
 };
 
+//==============
+// Verificar token en imagen por URL
+//==============
+
+//El next lo que hace es continuar con la ejecucion del programa, sino no se ejecuta el resto de funciones al salir del middleware
+let verificaTokenImg = (req, res, next) => {
+
+    let token = req.query.token;
+
+    jwt.verify(token, process.env.SEED, (error, decoded) => { //En decoded viene la informacion del payload
+
+        if (error) {
+            return res.status(401).json({
+                ok: false,
+                error: {
+                    message: 'Token no valido'
+                }
+            });
+        }
+
+        req.usuario = decoded.usuario;
+
+        next();
+    });
+};
+
+
 module.exports = {
     verificaToken,
-    verificaAdminRole
+    verificaAdminRole,
+    verificaTokenImg
 }
